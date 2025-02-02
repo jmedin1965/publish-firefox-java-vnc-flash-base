@@ -10,9 +10,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Get git tag
         run: |
+          echo "tag=${{steps.tagger.outputs.tag}}"
           echo "GIT_TAG=$(git describe --tags --abbrev=0|sed s/^v//g)"
           echo "GIT_TAG=aabbcc" >> $GITHUB_ENV
           echo "GIT_TAG2=$(git describe --tags --abbrev=0|sed s/^v//g)" >> $GITHUB_ENV
+          ls
+          pwd
       - name: Build and push the image
         run: |
           echo "the value is GIT_TAG:  $GIT_TAG"
