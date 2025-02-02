@@ -1,0 +1,19 @@
+
+# 0.2.0
+* added github actions to
+    * auto save tag in repo vars
+    * auto build and publish
+    * post-commit hook to auto tag from CHANGLOG.md
+    * REF: https://www.youtube.com/watch?v=RgZyX-e6W9E
+    * REF: https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions
+
+# 0.1.0
+* added novnc to hopefully be able to just connect to a web URL rather than use a vnc client
+* added --allow-unauthenticated to apt-get since the gpg key has expired and will never get reniewed
+    * This makes updating this image very insecure, but it is coming from debian thugh
+* added update-alternatives --force --all --skip-auto
+    * REF: https://dev1galaxy.org/viewtopic.php?id=649
+
+# 0.0.0
+* first beta version build docker iameg and eventually push to github
+* this is the base image I built up a long time ago
