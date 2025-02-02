@@ -1,9 +1,5 @@
 FROM \
     debian:wheezy-20190228-slim
-LABEL \
-  io.hass.version="0.0.9" \
-  io.hass.type="addon" \
-  io.hass.arch="i386|amd64"
 
 RUN  mkdir -p /usr/share/man/man1
 RUN  echo "deb http://archive.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list

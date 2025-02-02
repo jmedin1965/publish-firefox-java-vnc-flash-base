@@ -1,4 +1,7 @@
 
+# 0.2.1
+* Cheanup Docker file, removed Hove Assistant LABELS
+
 # 0.2.0
 * debugging github actions is not easy
 * added github actions to
