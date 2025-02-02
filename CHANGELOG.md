@@ -1,5 +1,6 @@
 
 # 0.2.0
+* debugging github actions is not easy
 * added github actions to
     * auto save tag in repo vars
     * auto build and publish
