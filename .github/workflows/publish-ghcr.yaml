@@ -12,6 +12,6 @@ jobs:
         run: |
           echo "GIT_TAG=`$(git describe --tags --abbrev=0|sed s/^v//g)`" >> $GITHUB_ENV
           docker login --username jmedin1965 --password ${{ secrets.GH_PAT }} ghcr.io
-          docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$(git describe --tags --abbrev=0|sed s/^v//g)
+          docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:${{ vars.GIT_TAG }}
           docker push ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest
-          docker push ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$(git describe --tags --abbrev=0|sed s/^v//g)
+          docker push ghcr.io/jmedin1965/firefox-java-vnc-flash-base:${{ vars.GIT_TAG }}
