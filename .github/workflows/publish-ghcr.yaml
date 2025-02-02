@@ -10,16 +10,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Get git tag
         run: |
-          echo "from file = $(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)"
-          echo "tag=${{steps.tagger.outputs.tag}}"
-          echo "GIT_TAG=$(git describe --tags --abbrev=0|sed s/^v//g)"
-          echo "GIT_TAG=aabbcc" >> $GITHUB_ENV
-          echo "GIT_TAG2=$(git describe --tags --abbrev=0|sed s/^v//g)" >> $GITHUB_ENV
-          echo "GIT_TAG3=$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)" >> $GITHUB_ENV
-          ls
-          pwd
+          echo "GIT_TAG=$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)" >> $GITHUB_ENV
       - name: Build and push the image
         run: |
           echo "the value is GIT_TAG:  $GIT_TAG"
-          echo "the value is GIT_TAG2: $GIT_TAG2"
-          echo "the value is GIT_TAG3: $GIT_TAG3"
+          docker login --username jmedin1965 --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
+          docker push ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest
+          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
