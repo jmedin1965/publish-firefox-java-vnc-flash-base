@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Add version tag from CHANGELOG.md
+
+tag="$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)"
+tag="${tag##v}"
+
+GIT_TAG="$(git describe --tags --abbrev=0 2> /dev/null)"
+if [ "$?" != 0 ]
+then
+	echo "No TAG exists, adding v$tag"
+	git tag v$tag
+
+elif [ "$GIT_TAG" != "$tag" ]
+then
+	echo "Tag not the same, adding v$tag"
+	git tag v$tag
+fi 
+
+GIT_TAG="$(git describe --tags --abbrev=0 2> /dev/null)"
+
+echo tag=\"$tag\"
+echo GIT_TAG=\"$GIT_TAG\"
+
+exit 0
