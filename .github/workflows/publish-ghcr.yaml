@@ -27,12 +27,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GH_PAT }}
-#      -
-#        name: Build and push the image
-#        run: |
-#          echo "the value is GIT_TAG:       $GIT_TAG"
-#          echo "the value is GIT_TAG_NAME:  $GIT_TAG_NAME"
-#          echo "the value is GIT_TAG_NAME:  ${{ steps.tagName.outputs.tag }}"
+      -
+        name: Build and push the image
+        run: |
+          echo "the value is GIT_TAG:       $GIT_TAG"
+          echo "the value is GIT_TAG_NAME:  $GIT_TAG_NAME"
+          echo "the value is GIT_TAG_NAME:  ${{ steps.tagName.outputs.tag }}"
 #          docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
 #          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest"
 #          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
