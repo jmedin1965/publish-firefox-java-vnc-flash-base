@@ -10,8 +10,6 @@ jobs:
       -
         name: GIT Checkout
         uses: actions/checkout@v3
-        run: |
-          echo "GIT_TAG2=$(/usr/bin/git describe --tags --abbrev=0 | sed s/\^v//g )" >> $GITHUB_ENV
       -
         name: Get git tag
         uses: little-core-labs/get-git-tag@v3.0.2
