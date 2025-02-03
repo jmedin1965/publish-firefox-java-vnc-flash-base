@@ -4,16 +4,17 @@
 
 tag="$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)"
 tag="${tag##v}"
+[ -z "$tag" ] && tag=0.0.0
 
 GIT_TAG="$(git describe --tags --abbrev=0 2> /dev/null)"
 if [ "$?" != 0 ]
 then
-	echo "No TAG exists, adding v$tag"
+	echo "No TAG exists: Adding Tag: v$tag"
 	git tag v$tag
 
 elif [ "$GIT_TAG" != "$tag" ]
 then
-	echo "Tag not the same, adding v$tag"
+	echo "TAG version bump: adding Tag: v$tag"
 	git tag v$tag
 fi 
 

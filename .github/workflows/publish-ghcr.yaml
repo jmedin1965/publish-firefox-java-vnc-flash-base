@@ -7,14 +7,27 @@ jobs:
   build_and_publish:
     runs-on:  ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Get git tag
+      -
+        name: GIT Checkout
+        uses: actions/checkout@v3
+        run: |
+          echo "GIT_TAG2=$(/usr/bin/git describe --tags --abbrev=0 | sed s/\^v//g )" >> $GITHUB_ENV
+      -
+        name: Get git tag
         run: |
           echo "GIT_TAG=$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | head -n 1); echo $2)" >> $GITHUB_ENV
-      - name: Build and push the image
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PAT }}
+      -
+        name: Build and push the image
         run: |
-          echo "the value is GIT_TAG:  $GIT_TAG"
-          docker login --username jmedin1965 --password ${{ secrets.GH_PAT }} ghcr.io
+          echo "the value is GIT_TAG:   $GIT_TAG"
+          echo "the value is GIT_TAG2:  $GIT_TAG2"
           docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
-          docker push ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest
+          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest"
           docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"

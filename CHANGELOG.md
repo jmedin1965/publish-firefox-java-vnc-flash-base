@@ -1,4 +1,7 @@
 
+# 0.3.1
+* Changed github action to log in to docker using docker/login-action@v3 instead
+
 # 0.2.1
 * Cheanup Docker file, removed Hove Assistant LABELS
 
