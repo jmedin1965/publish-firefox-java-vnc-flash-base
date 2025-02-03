@@ -12,6 +12,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+        run: |
+          git describe --tags --abbrev=0 | sed s/[v]*//g
+          echo "GIT_TAG2=$(git describe --tags --abbrev=0 | sed s/[v]*//g) >> $GITHUB_ENV
       -
         name: Get git tag using little-core-labs/get-git-tag
         uses: little-core-labs/get-git-tag@v3.0.2
@@ -35,6 +38,7 @@ jobs:
           echo "the value is GIT_TAG:       $GIT_TAG"
           echo "the value is GIT_TAG_NAME:  $GIT_TAG_NAME"
           echo "the value is GIT_TAG_NAME:  ${{ steps.tagName.outputs.tag }}"
+          echo "the value is GIT_TAG2:      $GIT_TAG2"
 #          docker build . --tag ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest --tag "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
 #          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:latest"
 #          docker push "ghcr.io/jmedin1965/firefox-java-vnc-flash-base:$GIT_TAG"
