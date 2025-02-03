@@ -1,4 +1,7 @@
 
+# 0.5.1
+* Finally extracting git tag into an env variable. I was missing "fetch-depth: 0" from actions/checkout
+
 # 0.4.1
 * Changed github action to log in to docker using docker/login-action@v3 instead
 
