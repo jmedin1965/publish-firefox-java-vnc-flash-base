@@ -7,12 +7,12 @@ jobs:
   build_and_publish:
     runs-on:  ubuntu-latest
     steps:
-      -
-        name: GIT Checkout
+      - name: GIT Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-        run: |
+      - run: |
+          git status
           git describe --tags --abbrev=0 | sed s/[v]*//g
           echo "GIT_TAG2=$(git describe --tags --abbrev=0 | sed s/[v]*//g) >> $GITHUB_ENV
       -
