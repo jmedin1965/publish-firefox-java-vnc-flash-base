@@ -1,4 +1,10 @@
 
+# 0.6.1
+* added bashio for home assistant
+    * REF: https://github.com/hassio-addons/bashio/
+* worked out how to add jq. It's a backport in Wheezy
+    * REF: https://unix.stackexchange.com/questions/148605/alternative-for-jq-in-debian-wheezy-to-parse-json-in-bash
+
 # 0.5.1
 * Finally extracting git tag into an env variable. I was missing "fetch-depth: 0" from actions/checkout
 
