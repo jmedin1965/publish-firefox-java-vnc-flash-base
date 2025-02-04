@@ -1,4 +1,7 @@
 
+# 0.6.3
+* need to add bashio source files to this repo
+
 # 0.6.2
 * forgot to MKDIR before copy, Docker file
 
