@@ -10,9 +10,9 @@ RUN \
     && apt-get -yu dist-upgrade --allow-unauthenticated \
     && apt-get -y --force-yes install tzdata=2016d-0+deb7u1
 RUN \
-    && DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install git
+    DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install git
 RUN \
-    && DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
+    DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
       git jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx novnc curl \
     && apt-get -y autoremove \
     && apt-get clean \
