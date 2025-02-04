@@ -1,4 +1,7 @@
 
+# 0.6.2
+* forgot to MKDIR before copy, Docker file
+
 # 0.6.1
 * added bashio for home assistant
     * REF: https://github.com/hassio-addons/bashio/

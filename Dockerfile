@@ -23,6 +23,7 @@ RUN  apt-get -y autoremove
 RUN  apt-get clean
 RUN  rm -rf /var/lib/{apt,dpkg,cache,log}
 
+RUN  mkdir -p /usr/lib/bashio
 COPY bashio/lib /usr/lib/bashio
 RUN ln -sf /usr/lib/bashio/bashio /usr/bin/bashio
 
