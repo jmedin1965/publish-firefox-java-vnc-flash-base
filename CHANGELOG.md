@@ -1,4 +1,7 @@
 
+# 0.6.5
+* wrong location for wheezy-backports
+
 # 0.6.4
 * delete /etc/apt/sources.list, and just add my two entries only
 
