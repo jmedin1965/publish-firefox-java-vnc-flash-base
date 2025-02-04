@@ -1,4 +1,7 @@
 
+# 0.8.1
+* add: I had missed "update-alternatives --set javaws /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/javaws"
+
 # 0.7.1
 * Installing bashio from Home Assistant add-on now, so remove from here
 * add curl git
