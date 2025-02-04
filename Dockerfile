@@ -8,12 +8,15 @@ RUN \
     && apt-get update --allow-unauthenticated \
     && update-alternatives --force --all --skip-auto \
     && apt-get -yu dist-upgrade --allow-unauthenticated \
-    && apt-get -y --force-yes install tzdata=2016d-0+deb7u1 \
-    && DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
-      git jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx novnc curl \
+    && apt-get -y --force-yes install tzdata=2016d-0+deb7u1
+RUN \
+    DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
+      git jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx novnc curl
+RUN \
     && apt-get -y autoremove \
-    && apt-get clean \
-    && rm -rf /var/lib/{apt,dpkg,cache,log} /tmp/*
+    && apt-get clean
+RUN \
+    rm -rf /var/lib/{apt,dpkg,cache,log} /tmp/*
 
 COPY run.sh /
 RUN chmod 755 /run.sh
