@@ -1,4 +1,7 @@
 
+# 0.6.4
+* delete /etc/apt/sources.list, and just add my two entries only
+
 # 0.6.3
 * need to add bashio source files to this repo
 

@@ -2,7 +2,7 @@ FROM \
     debian:wheezy-20190228-slim
 
 RUN  mkdir -p /usr/share/man/man1
-RUN  echo "deb http://archive.debian.org/debian wheezy main contrib non-free" >> /etc/apt/sources.list
+RUN  echo "deb http://archive.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list
 RUN  echo "deb http://http.debian.net/debian wheezy-backports main"           >> /etc/apt/sources.list
 RUN  apt-get update --allow-unauthenticated
 RUN  update-alternatives --force --all --skip-auto
