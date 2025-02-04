@@ -1,4 +1,8 @@
 
+# 0.7.1
+* Installing bashio from Home Assistant add-on now, so remove from here
+* add curl git
+
 # 0.6.5
 * wrong location for wheezy-backports
 
