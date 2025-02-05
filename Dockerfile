@@ -15,10 +15,11 @@ RUN \
     && apt-get clean \
     && rm -rf /var/lib/{apt,dpkg,cache,log} /tmp/*
 
-COPY files /
+COPY files/. /
 COPY run.sh /
-COPY files/etc/skel /root/
-RUN chmod 755 /run.sh
+RUN \
+    chmod 755 /run.sh \
+    && cp -a /etc/skel/. /root
 RUN adduser --disabled-password --gecos "" vnc
 
 CMD [ "/run.sh" ]
