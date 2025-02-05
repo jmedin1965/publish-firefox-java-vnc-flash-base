@@ -6,21 +6,45 @@ tag="$(set -- $(grep -e '^#\s\+[0-9]\+\.[0-9]\+\.[0-9]\+\s*$' CHANGELOG.md | hea
 tag="${tag##v}"
 [ -z "$tag" ] && tag=0.0.0
 
-GIT_TAG="$(git describe --tags --abbrev=0 2> /dev/null)"
-if [ "$?" != 0 ]
+GIT_TAG_CUR="$(git describe --tags --abbrev=0 2> /dev/null)"
+GIT_TAG_EXIST="$(git tag 2> /dev/null | fgrep v$tag)"
+if [ -z "$GIT_TAG_EXIST" ]
 then
-	echo "No TAG exists: Adding Tag: v$tag"
+	echo "TAG does not exists: Adding Tag: v$tag"
 	git tag v$tag
 
-elif [ "$GIT_TAG" != "$tag" ]
+elif [ "$GIT_TAG_CUR" != "v$tag" -a -n "$GIT_TAG_EXIST" ]
 then
-	echo "TAG version bump: adding Tag: v$tag"
+	echo "TAG move to HEAD: adding Tag: v$tag"
+	git tag -d v$tag
 	git tag v$tag
+else
+	echo "TAG exists already: Tag: "$GIT_TAG_EXIST""
 fi 
 
 GIT_TAG="$(git describe --tags --abbrev=0 2> /dev/null)"
 
-echo tag=\"$tag\"
-echo GIT_TAG=\"$GIT_TAG\"
+echo
+echo "Got tag           = v$tag from CHANGELOG.md"
+echo "Got GIT_TAG_CUR   = $GIT_TAG_CUR from before"
+echo "Got GIT_TAG_EXIST = $GIT_TAG_EXIST from before"
+echo "Got GIT_TAG       = $GIT_TAG from now"
+echo
+
+if [ -e Dockerfile ]
+then
+	perl -i -pe "s,io\.hass\.version=\".*\",io.hass.version=\"$tag\",g" Dockerfile
+	git add Dockerfile
+	echo "Version bump Dockerfile to $tag"
+fi
+
+if [ -e config.yaml ]
+then
+	perl -i -pe "s,^version:\s+\".*\",version: \"$tag\",g" config.yaml
+	git add config.yaml
+	echo "Version bump config.yaml to $tag"
+fi
+
+echo "version bump all done."
 
 exit 0
