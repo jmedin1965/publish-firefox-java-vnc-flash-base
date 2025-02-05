@@ -1,0 +1,2 @@
+exec jwm &
+firefox

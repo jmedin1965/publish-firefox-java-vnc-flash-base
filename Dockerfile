@@ -9,13 +9,15 @@ RUN \
     && apt-get -yu dist-upgrade --allow-unauthenticated \
     && apt-get -y --force-yes install tzdata=2016d-0+deb7u1 \
     && DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
-      jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx curl \
+      jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx curl x11-apps \
     && update-alternatives --set javaws /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/javaws \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/{apt,dpkg,cache,log} /tmp/*
 
+COPY ./files /
 COPY run.sh /
+COPY ./files/etc/skel /root/
 RUN chmod 755 /run.sh
 RUN adduser --disabled-password --gecos "" vnc
 

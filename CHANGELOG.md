@@ -1,7 +1,13 @@
 
+# 0.10.1
+* added x11-aps
+* added files to be copied to the container
+	* files had the /etc/skel/.xinit which ran the jwm window manager
+
 # 0.9.1
 * after much trial-and-error, builtin java viewer on port 5800 does not work
 * also novnc does not work either
+* rewrite of run.sh, now has lots of options
 
 # 0.8.1
 * add: I had missed "update-alternatives --set javaws /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/javaws"
