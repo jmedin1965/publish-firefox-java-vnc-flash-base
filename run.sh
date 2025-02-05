@@ -11,14 +11,13 @@
 CONFIG_PATH="/data/options.json"
 read_conf()
 {
-	local data
+	local data=""
 
 	if [ -n "$1" -a -e "$CONFIG_PATH" ]
 	then
-		data="$(jq --raw-output ".$1" < "$CONFIG_PATH")"
+		data="$(/usr/bin/jq --raw-output  "if has(\"$1\") then .$1 else \"$2\" end" /data/options.json)"
 	fi
-	[ -z "$date" ] && data="$2"
-	echo -n "$data"
+	echo "$data"
 }
 
 vnc_user="$(read_conf vnc_user vnc)"
@@ -26,6 +25,19 @@ vnc_password="$(read_conf vnc_password vnc)"
 vnc_allow_hosts_list="$(read_conf vnc_allow_hosts_list)"
 vnc_scale="$(read_conf vnc_scale)"
 vnc_extra_opts=()
+
+# list of services to auto start
+#services_list="x11-common xvfb"
+
+
+# Start services, sleep for 5 after each start
+for s in $services_list
+do
+	echo starting $s
+	service $s start
+	sleep 5
+done
+
 
 # option vnc_allow_hosts_list, used to limit what vnc is listening on.
 [ -n "$vnc_allow_hosts_list" ] && vnc_extra_opts=("${vnc_extra_opts[@]}" "-allow" "$vnc_allow_hosts_list")
@@ -66,6 +78,12 @@ then
 fi
 
 
+# REF: https://unix.stackexchange.com/questions/10465/how-do-i-start-xvfb-on-startup-on-debian
+#echo starting xvfb, sleep 10
+#/etc/init.d/xvfb start
+#sleep 10
+
+
 # -allow host1[,host2...]
 # Only allow client connections from hosts matching list of names or IP
 #
@@ -75,32 +93,31 @@ fi
 # -unixpw_cmd cmd
 # cmd is executed, first line of stdin is username, second line is password
 # if exits 0, allow login
+vnc_opts=(
+	"-vencrypt" "never"
+	"-anontls" "never"
+	"-nossl"
+	"-ncache"
+	"-ncache_cr"
+	"-xrandr" "resize"
+	"-shared"
+	"-forever"
+	"-create"
+	"-passwd" "${pwds[0]}"
+)
+#	"-users" "+$vnc_user"
+#	"-unixpw" "root:deny,$vnc_user"
+
 (
 	while :
 	do
 		echo "loop: x11vnc is starting, vnc_user = $vnc_user"
 
 #		/usr/bin/sudo -i -u $vnc_user \
-echo command line:	/usr/bin/x11vnc \
-			"${vnc_extra_opts[@]}" \
-			-ncache -ncache_cr \
-			-xrandr resize \
-			-shared \
-			-forever \
-			-create \
-			-users "$vnc_user" \
-			-unixpw "root:deny,$vnc_user"
+			echo command line: /usr/bin/x11vnc "${vnc_extra_opts[@]}" "${vnc_opts[@]}"
 
-#		/usr/bin/sudo -i -u $vnc_user \
-			/usr/bin/x11vnc \
-			"${vnc_extra_opts[@]}" \
-			-ncache -ncache_cr \
-			-xrandr resize \
-			-shared \
-			-forever \
-			-create \
-			-users "$vnc_user" \
-			-unixpw "root:deny,$vnc_user"
+		/usr/bin/sudo -i -u $vnc_user \
+			/usr/bin/x11vnc "${vnc_extra_opts[@]}" "${vnc_opts[@]}"
 
 #			-passwd "$(read_conf vnc_password)"
 		sleep 5
