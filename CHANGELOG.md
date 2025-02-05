@@ -1,6 +1,6 @@
 
 # 0.10.1
-* added x11-aps sudo vim
+* added x11-aps sudo vim sqlite3
 * added files/etc/vim/vimrc.local
 * added files to be copied to the container
 	* files had the /etc/skel/.xinit which ran the jwm window manager
