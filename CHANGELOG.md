@@ -1,4 +1,8 @@
 
+# 0.9.1
+* after much trial-and-error, builtin java viewer on port 5800 does not work
+* also novnc does not work either
+
 # 0.8.1
 * add: I had missed "update-alternatives --set javaws /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/javaws"
 
