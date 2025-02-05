@@ -1,9 +1,8 @@
 
 # 0.10.1
-* added x11-aps
+* added x11-aps sudo vim
 * added files to be copied to the container
 	* files had the /etc/skel/.xinit which ran the jwm window manager
-* added sudo
 
 # 0.9.1
 * after much trial-and-error, builtin java viewer on port 5800 does not work
