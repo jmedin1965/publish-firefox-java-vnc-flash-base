@@ -24,6 +24,7 @@ vnc_user="$(read_conf vnc_user vnc)"
 vnc_password="$(read_conf vnc_password vnc)"
 vnc_allow_hosts_list="$(read_conf vnc_allow_hosts_list)"
 vnc_scale="$(read_conf vnc_scale)"
+services_list="$(read_conf services_list)"
 vnc_extra_opts=()
 
 # list of services to auto start

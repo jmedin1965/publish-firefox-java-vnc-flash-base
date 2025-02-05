@@ -9,7 +9,7 @@ RUN \
     && apt-get -yu dist-upgrade --allow-unauthenticated \
     && apt-get -y --force-yes install tzdata=2016d-0+deb7u1 \
     && DEBIAN_FRONTEND=noninteractive apt-get --allow-unauthenticated -y install \
-      jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx curl x11-apps \
+      jq x11vnc xvfb jwm iceweasel openjdk-6-jre tzdata-java icedtea-6-plugin icedtea-netx curl x11-apps sudo \
     && update-alternatives --set javaws /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/javaws \
     && apt-get -y autoremove \
     && apt-get clean \
